@@ -32,6 +32,6 @@ var uiConfig = {
   ui.start('#firebaseui-auth-container', uiConfig);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      window.location.pathname = 'chat';
+      window.location.pathname = '/chat';
     }
   });
