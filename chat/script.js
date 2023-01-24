@@ -218,7 +218,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user.isDisabled) {
       console.log('This user account has been disabled');
       firebase.auth().signOut();
-      window.location.replace('/');
     } else {
       console.log('This user is authenticated');
     }
@@ -230,7 +229,6 @@ window.scrollTo(0,document.body.scrollHeight);
 window.scrollTo(0,document.body.scrollHeight);
   } else {
     firebase.auth().signOut();
-    window.location.replace('/');
   }
 });
 function isLink(string) {
@@ -296,7 +294,6 @@ function isImageLink(link) {
 function googleSignout() {
   firebase.auth().signOut()
   .then(function() {
-     window.location.replace('/');
   }, function(error) {
   });
 }
@@ -308,7 +305,6 @@ firebase.auth().onAuthStateChanged(function(user) {
       console.log("3");
       console.log('This user account has been disabled');
       firebase.auth().signOut();
-      window.location.replace('/');
     } else {
       console.log('This user is authenticated');
     }
@@ -324,7 +320,6 @@ firebase.auth().onIdTokenChanged(function(user) {
       console.log("3");
       console.log('This user account has been disabled');
       firebase.auth().signOut();
-      window.location.replace('/');
     } else {
       console.log('This user is authenticated');
     }
@@ -676,7 +671,6 @@ button.addEventListener("click", function() {
     if (user.isDisabled) {
       console.log('This user account has been disabled');
       firebase.auth().signOut();
-      window.location.replace('/');
     } else {
       console.log('This user is authenticated');
       
