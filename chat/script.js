@@ -19,7 +19,7 @@ firebase.auth().onAuthStateChanged( function(user) {
         if (user.isDisabled) {
           console.log('This user account has been disabled');
           firebase.auth().signOut();
-          window.location.replace('/');
+          window.location.replace('/Snektalk');
         } else {
           console.log('This user is authenticated');
         }
