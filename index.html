@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+          apiKey: "AIzaSyDsjDa8dQL4kxXg7Yrx_fTewS9pixVK2_E",
+          authDomain: "snektalk-41b50.firebaseapp.com",
+          projectId: "snektalk-41b50",
+          storageBucket: "snektalk-41b50.appspot.com",
+          messagingSenderId: "625439812905",
+          appId: "1:625439812905:web:d46308af63f024a703db38",
+          measurementId: "G-NF11X4WBZG"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+      </script>
+    <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+        <link
+          type="text/css"
+          rel="stylesheet"
+          href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
+        />
+        <script src="./auth.js"></script>
+        
+    <title>SnekTalk</title>
+</head>
+<body>
+    
+    <div id="input">
+        <img id="logo" src="SnekTalk_Logo.png" alt="snektalk logo">
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
+        <div style="position: relative;bottom: 5px;">
+        </div>
+    </div>
+
+    <style>
+        
+        body{
+            background-color: #313131;display: flex;
+            flex-direction: column;
+        }
+        #input{
+            width: 5in;
+            height: 6in;
+            /* Center vertically and horizontally */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            flex-grow: 1;
+            
+            background-color: rgb(41, 41, 41);
+            border-radius: 25px;
+            box-shadow: 5px 10px 4px #252525;
+        }
+        #user{
+            margin: -15% 0 0 -20%;
+            padding: 5px;
+            background-color: #00bf5f;
+            border-radius: 50px;
+            border-style: none;
+            font-size: 150%;
+            color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -15% 0 0 -32.5%;
+            width: auto;
+        }
+        #room{
+            margin: -15% 0 0 -20%;
+            padding: 5px;
+            background-color: #00bf5f;
+            border-radius: 50px;
+            border-style: none;
+            font-size: 150%;
+            color: white;
+            display: inline-block;
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            margin: -15% 0 0 -32.5%;
+            width: auto;
+        }
+        #enter{
+            background-color: #333333;
+            border-radius: 50px;
+            border-style: none;
+            font-size: 150%;
+            padding: 12px;
+            color: white;
+            margin: -15% 0 0 -20%;
+            display: inline-block;
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            margin: -15% 0 0 -20%;
+        }
+        #enter:hover{
+            background-color: #294f3c;
+            border-radius: 50px;
+            border-style: none;
+            font-size: 150%;
+            padding: 12px;
+            color: white;
+            margin: -15% 0 0 -20%;
+            display: inline-block;
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            margin: -15% 0 0 -20%;
+        }
+        ::-webkit-input-placeholder { /* Chrome */
+        color: rgb(255, 255, 255);
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+        color: rgb(255, 255, 255);
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+        color: rgb(255, 255, 255);
+        opacity: 1;
+        }
+        :-moz-placeholder { /* Firefox 4 - 18 */
+        color: rgb(255, 255, 255);
+        opacity: 1;
+        }
+        #logo{
+            height: 80%;
+
+            position: absolute;
+            top: -7.5%;
+            left: 45%;
+            margin: -15% 0 0 -30%;
+        }
+        @media (max-width: 500px) {
+            #input{width: 3.7in;height: 4in;}
+            #user{width: 2.5in;position: absolute;left: 47.5%;margin: -15% 0 0 -32.5%;}
+            #room{width: 2.5in;position: absolute;left: 47.5%;margin: -15% 0 0 -32.5%;}
+            #enter{font-size: 130%;position: absolute;top: 90%;left: 47.5%;margin: -15% 0 0 -20%;}
+            #logo{position: absolute;top: -7.5%;left: 50%;margin: -15% 0 0 -30%;}
+        }
+        @media (max-width: 370px) {
+            #input{width: 3in;height: 3.7in;}
+            #user{width: 2in;position: absolute;left: 47.5%;margin: -15% 0 0 -32.5%;}
+            #room{width: 2in;position: absolute;left: 47.5%;margin: -15% 0 0 -32.5%;}
+            #enter{font-size: 120%;position: absolute;top: 90%;left: 45%;margin: -15% 0 0 -20%;}
+            #logo{position: absolute;top: -7.5%;left: 45%;margin: -15% 0 0 -30%;}
+        }
+        #firebaseui-auth-container{
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%,-50%);
+        }
+    </style>
+</body>
+</html>
+<script>
+    function login(){
+    var value1= document.getElementById("user").value;
+    var value2=document.getElementById("room").value;
+    if (value1 == '' || value2 == ''){
+        return
+    }else{
+    var queryString = "?username=" + value1 + "&room=" + value2;
+    window.location.href = "chat" + queryString;
+    }
+}
+</script>

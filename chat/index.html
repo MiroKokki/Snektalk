@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script type = "text/JavaScript" src = " https://MomentJS.com/downloads/moment.js"></script>
+    <title>Snektalk</title>   
+  </head>
+  <body  id="body">  
+    <div id="example-wrapper">
+      <button id="theme-picker-button">Change Theme</button>
+      <div id="theme-picker-section" class="example-section">
+        <div id="theme-picker-popup" style="z-index: 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;">
+          <button id="color-button" class="circle-button" style="background-color: var(--white); color: #111;font-size: 10px;position: relative;top: -20px;">Custom</button>
+          <button class="circle-button" style="background-color: var(--default);" onclick="color('var(--default)');"></button>
+          <button class="circle-button" style="background-color: var(--red);" onclick="color('var(--red)');"></button>
+          <button class="circle-button" style="background-color: var(--blue);" onclick="color('var(--blue)');"></button>
+          <button class="circle-button" style="background-color: var(--orange);" onclick="color('var(--orange)');"></button>
+          <button class="circle-button" style="background-color: var(--yellow);" onclick="color('var(--yellow)');"></button>
+          <button class="circle-button" style="background-color: var(--indigo);" onclick="color('var(--indigo)');"></button>
+          <button class="circle-button" style="background-color: var(--violet);" onclick="color('var(--violet)');"></button>
+          <button id="theme-picker-close" class="circle-button" style="background-color: var(--white); color: #111;font-size: 10px;position: relative;top: -20px;"><span class="material-symbols-outlined" style="position: relative;top: 17%;cursor: pointer;">
+            close
+            </span></button>
+        </div>
+      </div>
+    </div>
+     
+    <!-- The HTML for the menu button and side bar -->
+    <div id="overlay" style="cursor: default; display: none;" onclick=""></div>
+
+  <div id="side-bar">
+    <ul>
+      <h3 style="color:white;">Chat Groups:</h3>
+      <input type="text" name="chatgroup" placeholder="Enter a chat group..." id="newchatgroup" style="
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 3px solid white; position: relative;left: -30px;width: 125px; top:20px; color: white;cursor:text;">
+      <button id="button1"><span class='material-symbols-outlined' style="color:white;background-color: transparent;
+        background-repeat: no-repeat;
+        border: none;
+        cursor: pointer;
+        overflow: hidden;
+        outline: none; position: relative;right:-110px;width: 125px; top:0px;width: fit-content;">
+        add
+        </span></button>
+      <ul id="chatgroupList" ></ul>
+    </ul>
+  </div>
+ 
+    <!--<div class="sidenav">
+      
+    </div>-->
+    <div id="taskbar">
+      <div id="menu-button" style="position: absolute;left: 2.7%;cursor: pointer;color: white;"><span class="material-symbols-outlined">
+        menu
+        </span></div>
+      <button onclick="googleSignout()" id="chat-btn2">sign-out</button>
+
+      <div id="options-dropdown">
+        <button id="options-button">Options</button>
+        <div class="dropdown-content">
+          <a id="change-password-option" >Change Password</a>
+          <a id="change-username-option">Change Username</a>
+          <a id="delete-account-option" style="color:rgb(255, 93, 93);font-weight:800;" >Delete Account</a>
+          <a id="theme-picker-button" onclick="document.getElementById('theme-picker-popup').style.display = 'block';">Theme</a>
+        </div>
+      </div>      
+      <h3 id="user-name">username</h3>
+      <h3 id="room12" onclick="slide()">room <span class="material-symbols-outlined" style="position: relative;bottom: -5px;">expand_more</span></h3>
+
+      <!--<span class="material-symbols-rounded">
+        settings
+        </span>-->
+      </div>
+      
+      <div id="taskbar2">
+        </div>
+        <div id="online-users" class="hide">
+          <h2>Online Users:</h2>
+          <ul id="online-users-list"></ul>
+        </div>
+        
+    <div class="main">
+    <div id="chat">  
+      <center>
+        <div id="chatm" class="element-to-disable"><ul id="messages" ></ul></div>
+      </center>   
+          
+    </div>    
+    </div> 
+    
+    <form id="send-message" class="element-to-disable" style="display: flex;
+    flex-flow: column wrap;">
+      
+      <input class="element-to-disable" id="chat-txt" type="text" autofocus aria-selected="true" autocomplete="off"/>
+      <button class="element-to-disable" id="chat-btn" type="submit" ><span class="material-symbols-outlined"style="display: inline-block;position: relative;top:-12px;left:-11px;">
+        send
+        </span></button>
+      <input  class="element-to-disable" style="position: fixed;bottom:70px;" type="file" id="fileInput"  hidden/>
+
+      <!-- our custom upload button -->
+      <div class="progress-bar" id="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+      
+      <label id="label1" for="fileInput" style="position: absolute;bottom:15px;left: 7px;text-align:center;" accept="image/*" >
+        <span id="icon1" class="material-symbols-outlined" style="display: inline-block;position: relative;top:10%;">
+          upload_file
+        </span>
+      </label>
+
+      <div id="typing-status">
+        <ul id="typing-list"></ul>
+      </div>
+      <!-- name of file chosen -->
+      
+    
+    </form>    
+    <form id="padding">
+    </form>
+    <!--<audio id="audio1" src="sent.wav" autoplay="false" style="display: none; position: fixed;top: -1000%;pointer-events: none;"></audio>-->
+    
+<div id="bottom"> </div>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-messaging.js"></script>
+<script src="script.js"></script> 
+
+<style>
+
+
+:root{
+  --white: rgb(255, 255, 255);
+  --red: rgb(229, 57, 53);
+  --orange: rgb(251, 140, 0);
+  --yellow: rgb(253, 216, 53);
+  --green: rgb(67, 160, 71);
+  --blue: rgb(30, 136, 229);
+  --indigo: rgb(57, 73, 171);
+  --violet: rgb(156, 39, 176);
+  --default: #00bf5f;
+
+  --color: #00bf5f;
+  --backgroundstyle: #2b2b2b ;
+  --fontcolor: white;
+}
+
+
+#typing-status {
+  display: inline-block;
+  margin-left: 20px;
+  padding: 10px;
+  color:lightgray;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 50px;
+  left: 0px;
+}
+
+#typing-status p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+#typing-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#typing-list li {
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 20px;
+  background-color: rgb(60, 60, 60);
+  border-radius: 5px;
+  position: fixed;
+  bottom: 65px;
+  left: 15px;
+  display: none;
+  z-index: 5;
+}
+
+.progress {
+  width: 0%; /* change this to the percentage value you want */
+  height: 100%;
+  background-color: var(--color); /* change this to the color you want */
+  border-radius: 5px;
+  display: none;
+  z-index: 5;
+}
+
+  #online-users {
+  background-color: #212121;
+  padding: 20px;
+  margin-top: 0;
+  position: fixed;
+  top: 55px;
+  left: -15px;
+  width: 100%;
+  z-index: 100;
+  height: 20px;
+  color: white;
+  display: flex; /* display children in a row */
+  align-items: center; /* align children to the center vertically */
+  flex-wrap: nowrap; /* prevent list items from wrapping to new lines */
+  transition: all 0.4s ease-in-out;
+}
+.hide {
+  display: none !important;
+}
+#online-users h2 {
+  margin: 0;
+  margin-right: 10px; /* add some space between heading and list */
+}
+
+#online-users-list {
+  list-style-type: none; /* remove bullet points from list items */
+  margin: 0; /* remove default margin */
+  padding: 0; /* remove default padding */
+  display: flex; /* display list items in a row */
+  flex-wrap: nowrap; /* prevent list items from wrapping to new lines */
+  font-size: large;
+}
+
+#online-users-list li {
+  margin-right: 10px; /* add some space between list items */
+}
+
+
+
+  .circle-button {
+  /* Set the width and height of the button to be equal */
+  width: 50px;
+  height: 50px;
+  
+  /* Make the button circular by setting the border-radius to half of the width and height */
+  border-radius: 25px;
+  
+  /* Set the background color of the button */
+  
+  /* Add some styling for the text inside the button */
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  border-style: none;
+  cursor: pointer;
+}
+
+  /* Add styles to hide the pop-up by default */
+#theme-picker-popup {
+  display: none;
+}
+
+/* Add a background color and some padding to the pop-up */
+#theme-picker-popup {
+  background-color: #434343;
+  border-radius: 10px;
+  padding: 15px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: fit-content;
+  padding-bottom: 0;
+}
+
+/* Add styles to show the pop-up when the button is clicked */
+#theme-picker-button:active + #theme-picker-popup, #theme-picker-popup:active {
+  display: block;
+}
+
+  #button1 {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+#button1:focus {
+    border: none;
+}
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 100% of the viewport height */
+}
+
+.center-element {
+  margin: auto;
+}
+
+
+audio{
+  width: 270px;
+}
+  #custom-menu {
+    position: absolute;
+    background-color: rgb(59, 59, 59);
+    border: 1px solid rgb(18, 18, 18);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.menu-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: rgb(51, 51, 51);
+}
+
+  .element-to-disable {
+ pointer-events: auto;
+}
+
+  #overlay {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
+  z-index: 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000; /* Position the overlay on top of other elements */
+  display:none; /* to hide it on page load */
+}
+  .chatgroup{
+    position: relative;
+    left: -55px;
+    text-decoration: none;
+    white-space: nowrap;
+    max-width: 125px;
+  }
+  .remove{
+    position:absolute;
+    right: -30px;
+    top: -4px;
+  }
+  /* The CSS for hiding and showing the side bar */
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .remove { display:inline-block; margin-left:10px; padding:2px 4px; color:white; cursor:pointer; }
+  .p1{
+    color: white;
+    position: relative;
+    left: -50px;
+  }
+#side-bar {
+  position: fixed;
+  bottom: 0;
+  left: -200px;
+  width: 200px;
+  height: calc(100% - 60px);
+  background-color: rgb(60, 60, 60);
+  transition: left 0.5s;
+  z-index: 1000000000000000000000000000000;
+  color: var(--fontcolor);
+}
+
+#side-bar.visible {
+  left: 0;
+}
+
+  #label1 {
+  background-color:var(--color);
+  color: white;
+  padding: 0.5rem;
+  font-family: Arial, Helvetica, sans-serifs;
+  border-radius: 10000px;
+  cursor: pointer;
+  margin-top: 1rem;
+  height: 30px;
+  width: 30px;
+  font-size: small;
+  align-items: center;
+  cursor: pointer;
+}
+
+#uploadButton{
+  background-color:var(--color);
+  color: white;
+  padding: 0.5rem;
+  font-family: Arial, Helvetica, sans-serifs;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  border: var(--color);
+  font-size: 20px;
+  height: 35px;
+}
+
+#file-chosen{
+  margin-left: 0.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+  .dropdown-content {
+  display: none;
+}
+
+  .material-symbols-rounded {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 0,
+    'opsz' 40
+  }
+
+    #user-name{
+    display: block;
+    position: fixed;
+    right: 10vw;
+    top: 0;
+    color: white;
+    font-family: arial;
+    }
+    #room12{
+    display: block;
+    position: fixed;
+    right: 50%;
+    top: -7px;
+    color: white;
+    font-family: arial;
+    text-align: center;
+    cursor: pointer;
+    }
+
+.box3 {
+  font-size: 20px;
+  max-width: 280px;
+  min-width: 30px;
+  width: fit-content;
+  height:fit-content;
+  min-height: 10px;
+  margin: 30px auto;
+  border-radius: 10px;
+  background: #7c7c7c;
+  color: #fff;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 0.1px;
+  text-align: center;
+  font-weight: 2px;
+  font-family: arial;
+  position: relative;
+  margin-right:auto;
+  margin-left:0px;
+  word-wrap: break-word;
+  
+}
+
+.box2{
+  font-size: 20px;
+  width: fit-content;
+  max-width: 280px;
+  min-width: 30px;
+  height:fit-content;
+  min-height: 10px;
+  margin: 30px auto;
+  border-radius: 10px;
+  background: var(--color);
+  color: #fff;
+  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 0.1px;
+  text-align: center;
+  font-weight: 2px;
+  font-family: arial;
+  position: relative;
+  margin-left:auto;
+  margin-right:30px;
+  word-wrap: break-word;
+}
+.box4{
+  font-size: 20px;
+  width: fit-content;
+  max-width: 300px;
+  min-width: 30px;
+  height:fit-content;
+  min-height: 10px;
+  margin: 30px auto;
+  border-radius: 15px;
+  background: transparent;
+  color: #fff;
+  padding: 4px;
+  padding-top: 0.1px;
+  padding-bottom: 0.1px;
+  text-align: center;
+  font-weight: 2px;
+  font-family: arial;
+  margin-left:auto;
+  margin-right:auto;
+  word-wrap: none;
+  position: relative;
+  left: 0;
+}
+
+.sb13:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 15px solid var(--color);
+  border-right: 15px solid transparent;
+  border-top: 15px solid var(--color);
+  border-bottom: 15px solid transparent;
+  right: -18px;
+  top: 0px;
+  z-index:-10;
+}
+
+
+.sb14:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 15px solid transparent;
+  border-right: 15px solid #7c7c7c;
+  border-top: 15px solid #7c7c7c;
+  border-bottom: 15px solid transparent;
+  left: -18px;
+  top: 0px;
+  z-index:-10;
+} 
+  
+  #chat-txt{
+    width: 100vw;
+    position: relative;
+    left: -22px;
+    bottom: -12px;
+    padding: 5px;
+    background-color: var(--color);
+    border-radius: 15px;
+    border-style: none;
+    font-size: 25px;
+    align-self: center;
+    color: white;
+    outline: none;
+  }
+
+  #chat-txt:disabled{
+    display: block;
+    width:70vw;
+    position: fixed;
+    bottom: 20px;
+    left: 51px;
+    padding: 5px;
+    background-color: var(--backgroundstyle);
+    border-radius: 50px;
+    border-style: none;
+    font-size: medium;
+    cursor:default;
+    color: var(--backgroundstyle);
+
+  }
+  #chat-btn{
+    display: block;
+    position: fixed;
+    bottom: 15px;
+    right: 13px;
+    min-width: 30px;
+    height: 30px;
+    width: 30px;
+    padding: 25px;
+    background-color: var(--color);
+    border-radius: 50px;
+    border-style: none;
+    size: 100px;
+    color: white;
+    
+
+  }
+  #chat-btn:disabled{
+    display: block;
+    position: fixed;
+    bottom: 15px;
+    right: 13px;
+    width: 5vw;
+    min-width: 40px;
+    height: 40px;
+    padding: 5px;
+    background-color: var(--backgroundstyle);
+    border-radius: 50px;
+    border-style: none;
+    size: 100px;
+
+    cursor:default;
+    color: var(--backgroundstyle);
+  }
+  #label12 {
+    background-color: var(--backgroundstyle); /* Green */
+    color: var(--backgroundstyle);
+    cursor:default;
+
+    padding: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 10000px;
+    margin-top: 1rem;
+    height: 25px;
+    width: 25px;
+    font-size: small;
+    align-items: center;
+}
+    
+  
+  #chat-btn2{
+    display: block;
+    position: fixed;
+    top: 1%;
+    left: 5.5%;
+    background-color: var(--color); /* Green */
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    color: white;
+  }
+  #notifi{
+    position: fixed;
+    top: 15px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    background-color: var(--color);
+    border-radius: 50px;
+    border-style: none;
+    size: 100px;
+    color: white;
+  }
+  /*#chatm{
+    height: 90%;
+    box-sizing:border-box;
+  }*/
+  html{
+    background: var(--backgroundstyle);
+  }
+  #chat{
+    height: 95%;
+  }
+  .sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+  .main {
+  height: 90%;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+@media screen and (max-width: 1160px){
+  #user-name{
+    right: 20vw;
+    }
+}
+@media screen and (max-width: 500px){
+  #user-name{
+    right: 25vw;
+    }
+}
+@media screen and (max-width: 400px){
+  #user-name{
+    right: 30vw;
+    }
+}
+#send-message{
+  background-color: var(--backgroundstyle);
+  padding: 20px;
+  padding-top: 20px;
+  margin-top:auto;
+  margin-bottom:0px;
+  position: fixed;
+  width: 100vw;
+  height: 50px;
+  left: 0vw;
+  right: 0vw;
+  bottom: 0%;
+  z-index: 100;
+}
+#taskbar2 {
+  background-color: var(--backgroundstyle);
+  padding: 20px;
+  margin-top: 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: 43px;
+}
+#taskbar {
+  background-color: #404040;
+  padding: 20px;
+  margin-top: 0;
+  position: fixed;
+  top: 0;
+  left: -15px;
+  width: 100%;
+  z-index: 1000;
+  height: 20px;
+}
+
+#padding{
+  background-color: var(--backgroundstyle);
+  padding: 55px;
+  padding-top: 20px;
+  margin-top:auto;
+  margin-bottom:0px;
+  position: auto;
+  z-index: 100;
+}
+.user{
+    font-size: 10px;
+    position: absolute;
+    top: -25px;
+    left: 10px;
+    white-space: nowrap;
+  }
+  .useryou{
+    font-size: 10px;
+    position: absolute;
+    top: -25px;
+    right: 10px;
+    white-space: nowrap;
+  }
+  .delete1{
+    font-size: 10px;
+    position: absolute;
+    top: -5px;
+    left: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: white;
+  }
+  .update1{
+    font-size: 10px;
+    position: absolute;
+    top: -5px;
+    left: 20px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: white;
+  }
+  .delete2{
+    font-size: 10px;
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    white-space: nowrap;
+    cursor: pointer;
+    color: white;
+  }
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #4f4f4f #333333;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #333333;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #4f4f4f;
+    border-radius: 100px;
+    border: 0px none #ffffff;
+  }
+  .WebContainer{
+    width: 100%;
+    min-width: 850px;
+    height: auto;
+  }
+  p{
+    font-size:large;
+  }
+  a {
+  color: #FFF;
+}
+a:hover {
+   color: whitesmoke;
+}
+img{
+  width: 270px;
+}
+body {
+  padding: 0;
+  height: 100%;
+}
+html, body{
+  overflow-x: hidden;
+  width: 100%;
+}
+#options-button {
+  background-color: var(--color); /* Green */
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+    position: fixed;
+    right: 2vw;
+    top: 1%;
+  border-radius: 10px;
+}
+
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 3.5vw;
+  top: 82%;
+  background-color: #4d4d4d;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: rgb(255, 255, 255);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.dropdown-content a:hover {
+  background-color: #434343
+}
+
+#options-dropdown:hover .dropdown-content {
+  display: block;
+}
+#fileButton{
+  position: fixed;
+  bottom: 100px;
+  right: 5px;
+}
+
+  </style>
+  </body>
+</html>
