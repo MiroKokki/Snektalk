@@ -18,7 +18,7 @@ var uiConfig = {
     },
     // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
     signInFlow: 'popup',
-    signInSuccessUrl: './chat',
+    signInSuccessUrl: 'https://mirokokki.github.io/Snektalk/chat',
     signInOptions: [
       // Leave the lines as is for the providers you want to offer your users.
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -32,6 +32,6 @@ var uiConfig = {
   ui.start('#firebaseui-auth-container', uiConfig);
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      window.location.pathname = './chat';
+      window.location.pathname = 'https://mirokokki.github.io/Snektalk/chat';
     }
   });
